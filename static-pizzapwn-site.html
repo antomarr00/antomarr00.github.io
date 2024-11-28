@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PizzaPwn</title>
+	<script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <style>
+        .sidebar {
+            width: 6rem;
+            background-color: #B91C1C;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        .sidebar-icon {
+            width: 2rem;
+            height: 2rem;
+        }
+        .sidebar-icon.active {
+            color: #FCD34D;
+            transform: scale(1.1);
+        }
+        .tooltip {
+            position: absolute;
+            left: 100%;
+            margin-left: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 0.25rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+        .sidebar-item:hover .tooltip {
+            opacity: 1;
+        }
+        .course-progress {
+            width: 100%;
+            background-color: #FECACA;
+            border-radius: 9999px;
+            height: 0.625rem;
+        }
+        .course-progress-bar {
+            background-color: #DC2626;
+            height: 0.625rem;
+            border-radius: 9999px;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body class="flex h-screen bg-amber-50">
+    <div class="sidebar">
+        <div class="flex flex-col items-center mb-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>        
+            </svg>
+            <h1 class="text-white text-lg font-bold">PizzaPwn</h1>
+        </div>
+        <div class="space-y-8">
+            <div class="sidebar-item group relative cursor-pointer" data-section="dashboard">
+                <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon dashboard-icon text-white/70 hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="tooltip">Dashboard</span>
+            </div>
+            <div class="sidebar-item group relative cursor-pointer" data-section="courses">
+                <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon courses-icon text-white/70 hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span class="tooltip">Corsi</span>
+            </div>
+            <div class="sidebar-item group relative cursor-pointer" data-section="ranking">
+                <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon ranking-icon text-white/70 hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <span class="tooltip">Classifica</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content flex-1 overflow-y-auto">
+        <div class="dashboard-section p-8" style="display: block;">
+            <h1 class="text-3xl font-bold text-red-700 mb-8">Benvenuto Chef! 🍕</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-xl shadow-md border-2 border-red-200">
+                    <h3 class="text-lg font-semibold text-red-700 mb-2">Corsi Attivi</h3>
+                    <div class="text-3xl font-bold text-red-500">2</div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md border-2 border-red-200">
+                    <h3 class="text-lg font-semibold text-red-700 mb-2">Punti Totali</h3>
+                    <div class="text-3xl font-bold text-red-500">1,234</div>
+                </div>
+        
+                <div class="bg-white p-6 rounded-xl shadow-md border-2 border-red-200">
+                    <h3 class="text-lg font-semibold text-red-700 mb-2">Badge</h3>
+                    <div class="text-3xl font-bold text-red-500">5</div>
+                </div>
+            </div>
+        
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg p-6 border-2 border-red-200">
+                    <h3 class="font-semibold text-red-800 mb-2">Margherita - Fondamenti di Sicurezza</h3>
+                    <div class="course-progress mb-2">
+                        <div class="course-progress-bar" style="width: 65%"></div>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-red-700">Principiante</span>
+                        <span class="font-bold text-red-900">65%</span>
+                    </div>
+                </div>
+        
+                <div class="bg-white rounded-lg p-6 border-2 border-red-200">
+                    <h3 class="font-semibold text-red-800 mb-2">Napoletana - Web Security</h3>
+                    <div class="course-progress mb-2">
+                        <div class="course-progress-bar" style="width: 30%"></div>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-red-700">Intermedio</span>
+                        <span class="font-bold text-red-900">30%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="courses-section p-8" style="display: none;">
+            <h1 class="text-3xl font-bold text-red-700 mb-6">Menu Corsi PizzaPwn 🍕</h1>
+            
+            <div class="mb-6">
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="Cerca nel menu della sicurezza..."
+                  class="w-full p-4 pl-12 rounded-full border-2 border-red-200 search-input"
+                />
+                <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-1/2 -translate-y-1/2 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </div>
+            </div>
+        
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border-2 border-red-200">
+                <div class="p-6">
+                  <div class="flex justify-between items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <div class="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-400 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                      <span class="font-semibold">4.7</span>
+                    </div>
+                  </div>
+                  
+                  <h2 class="text-xl font-bold text-red-800 mb-2">Margherita - Fondamenti di Sicurezza</h2>
+                  <p class="text-gray-600 text-sm mb-4">I fondamenti essenziali della cybersecurity</p>
+                  
+                  <div class="flex items-center justify-between">
+                    <span class="px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                      Principiante
+                    </span>
+                    <div class="flex items-center text-gray-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span class="text-sm">12 ore</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border-2 border-gray-200">
+                <div class="absolute inset-0 bg-black/30 backdrop-blur-sm z-10 flex flex-col items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <span class="text-white font-semibold">Corso Bloccato</span>
+                </div>
+
+                <div class="p-6">
+                  <div class="flex justify-between items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 
